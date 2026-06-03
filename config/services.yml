@@ -1,0 +1,21 @@
+services:
+
+  limepackapi.api_client_provider:
+    class: LimepackApi\Classes\Auth\ApiClientProvider
+    public: true
+
+  limepackapi.auth_middleware:
+    class: LimepackApi\Classes\Middleware\AuthMiddleware
+    public: true
+    arguments:
+      - '@limepackapi.api_client_provider'
+
+  limepackapi.order_repository:
+    class: LimepackApi\Classes\Repository\OrderRepository
+    public: true
+
+  limepackapi.order_service:
+    class: LimepackApi\Classes\Service\OrderService
+    public: true
+    arguments:
+      - '@limepackapi.order_repository'
