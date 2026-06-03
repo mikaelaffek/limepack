@@ -74,6 +74,17 @@ class LimepackApi extends Module
     }
 
     /**
+     * Uninstalls the module and unregisters the moduleRoutes hook.
+     *
+     * @return bool True on successful uninstall, false otherwise.
+     */
+    public function uninstall()
+    {
+        return $this->unregisterHook('moduleRoutes')
+            && parent::uninstall();
+    }
+
+    /**
      * Registers the API URL routes with PrestaShop's dispatcher.
      *
      * Route generation is delegated to ModuleRoutes so that adding a new

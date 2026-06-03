@@ -1,8 +1,20 @@
 <?php
 
+/**
+ * Limepack API
+ *
+ * @author    Limepack Developer Team
+ * @copyright Limepack
+ * @license   commercial
+ */
+
 namespace LimepackApi\Classes\Middleware;
 
 use LimepackApi\Classes\Auth\ApiClientProvider;
+
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
 
 /**
  * Authenticates incoming API requests by validating the caller's API key.

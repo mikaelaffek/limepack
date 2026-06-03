@@ -1,6 +1,18 @@
 <?php
 
+/**
+ * Limepack API
+ *
+ * @author    Limepack Developer Team
+ * @copyright Limepack
+ * @license   commercial
+ */
+
 namespace LimepackApi\Classes\Response;
+
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
 
 /**
  * Builds the consistent JSON envelope used by every API response.

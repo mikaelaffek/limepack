@@ -91,11 +91,17 @@ invalid key results in a JSON error response rather than an uncaught fatal.
 | --- | --- | --- |
 | GET | `/limepackapi/v1/orders` | List orders (supports `limit`/`offset`). |
 | GET | `/limepackapi/v1/orders/{id}` | Single order with customer + product detail. |
+| POST | `/limepackapi/v1/tracking/{id}` | Set an order's tracking number/carrier and advance it to shipped. Body: `tracking_number` (required), `carrier` (optional). |
 
 Example:
 
 ```
 GET /limepackapi/v1/orders/1?key=lp_manus_9f3a1c72d4
+```
+
+```
+POST /limepackapi/v1/tracking/1?key=lp_manus_9f3a1c72d4
+{ "tracking_number": "ABC123", "carrier": "PostNord" }
 ```
 
 Success envelope:

@@ -1,8 +1,20 @@
 <?php
 
+/**
+ * Limepack API
+ *
+ * @author    Limepack Developer Team
+ * @copyright Limepack
+ * @license   commercial
+ */
+
 namespace LimepackApi\Classes\Api;
 
 use LimepackApi\Classes\Response\ApiResponse;
+
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
 
 /**
  * Base class for all versioned API controllers.
