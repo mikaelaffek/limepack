@@ -1,0 +1,35 @@
+# Future routing (V2) — prepared, not active yet.
+#
+# V1 (current): routes are declared in PHP via hookModuleRoutes() in
+# limepackapi.php, delegating to classes/Router/ModuleRoutes.php. Simple,
+# PrestaShop-native, zero extra dependencies.
+#
+# V2 (next step): migrate to Symfony-style routing below, following the
+# same pattern already used by the Artworks module (modules/artworks/
+# config/routes.yml). This gives per-route HTTP method enforcement
+# (methods: [GET], [POST], ...) and direct controller-action mapping,
+# instead of dispatching everything through the gateway controller.
+#
+# To activate: uncomment the routes below and point each _controller at the
+# matching versioned controller action.
+#
+# limepackapi_orders_list:
+#     path: limepackapi/orders
+#     methods: [GET]
+#     defaults:
+#         _controller: 'LimepackApi\Classes\Api\Controllers\V1\OrderController::getOrders'
+#         _disable_module_prefix: true
+#
+# limepackapi_orders_show:
+#     path: limepackapi/orders/{id}
+#     methods: [GET]
+#     defaults:
+#         _controller: 'LimepackApi\Classes\Api\Controllers\V1\OrderController::getOrder'
+#         _disable_module_prefix: true
+#
+# limepackapi_tracking_update:
+#     path: limepackapi/tracking/{id}
+#     methods: [POST]
+#     defaults:
+#         _controller: 'LimepackApi\Classes\Api\Controllers\V1\TrackingController::update'
+#         _disable_module_prefix: true
