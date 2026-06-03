@@ -100,6 +100,12 @@ abstract class AbstractController
 
                     break;
 
+                case 'POST':
+
+                    $data = $this->post();
+
+                    break;
+
                 default:
 
                     $this->respondError(
@@ -115,8 +121,12 @@ abstract class AbstractController
 
         } catch (\Exception $e) {
 
+            $code = method_exists($e, 'getStatusCode')
+                ? $e->getStatusCode()
+                : 500;
+
             $this->respondError(
-                500,
+                $code,
                 $e->getMessage()
             );
         }
@@ -170,7 +180,47 @@ abstract class AbstractController
     /**
      * Handle a GET request for the concrete resource.
      *
+     * Concrete controllers override this when they support reads. The default
+     * rejects the request with a 405 so unsupported methods fail cleanly.
+     *
      * @return array The data payload to be wrapped in a success response.
      */
-    abstract protected function get();
+    protected function get()
+    {
+        $this->respondError(405, 'Method not allowed');
+    }
+
+    /**
+     * Handle a POST request for the concrete resource.
+     *
+     * Concrete controllers override this when they support writes/actions.
+     * The default rejects the request with a 405.
+     *
+     * @return array The data payload to be wrapped in a success response.
+     */
+    protected function post()
+    {
+        $this->respondError(405, 'Method not allowed');
+    }
+
+    /**
+     * Read and decode the JSON request body, if any.
+     *
+     * Falls back to an empty array when the body is missing or invalid, so
+     * callers can safely treat the result as an associative array.
+     *
+     * @return array The decoded request body.
+     */
+    protected function getJsonBody()
+    {
+        $raw = file_get_contents('php://input');
+
+        if (!$raw) {
+            return array();
+        }
+
+        $decoded = json_decode($raw, true);
+
+        return is_array($decoded) ? $decoded : array();
+    }
 }

@@ -1,0 +1,102 @@
+{
+	"info": {
+		"name": "Limepack API",
+		"description": "Collection for testing the Limepack API module (PrestaShop 1.7.7). Set the `base_url` and `api_key` collection variables before running.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8080",
+			"type": "string"
+		},
+		{
+			"key": "api_key",
+			"value": "lp_manus_9f3a1c72d4",
+			"type": "string"
+		},
+		{
+			"key": "order_id",
+			"value": "1",
+			"type": "string"
+		}
+	],
+	"item": [
+		{
+			"name": "Orders - list",
+			"request": {
+				"method": "GET",
+				"header": [
+					{ "key": "Accept", "value": "application/json" }
+				],
+				"url": {
+					"raw": "{{base_url}}/limepackapi/v1/orders?key={{api_key}}&limit=20&offset=0",
+					"host": [ "{{base_url}}" ],
+					"path": [ "limepackapi", "v1", "orders" ],
+					"query": [
+						{ "key": "key", "value": "{{api_key}}" },
+						{ "key": "limit", "value": "20" },
+						{ "key": "offset", "value": "0" }
+					]
+				},
+				"description": "Returns a paginated list of orders."
+			}
+		},
+		{
+			"name": "Orders - show",
+			"request": {
+				"method": "GET",
+				"header": [
+					{ "key": "Accept", "value": "application/json" }
+				],
+				"url": {
+					"raw": "{{base_url}}/limepackapi/v1/orders/{{order_id}}?key={{api_key}}",
+					"host": [ "{{base_url}}" ],
+					"path": [ "limepackapi", "v1", "orders", "{{order_id}}" ],
+					"query": [
+						{ "key": "key", "value": "{{api_key}}" }
+					]
+				},
+				"description": "Returns a single order with customer and product detail, including Limepack-specific custom fields."
+			}
+		},
+		{
+			"name": "Tracking - update (POST)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{ "key": "Content-Type", "value": "application/json" },
+					{ "key": "Accept", "value": "application/json" }
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"tracking_number\": \"TRACK123456\",\n    \"carrier\": \"PostNord\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/limepackapi/v1/tracking/{{order_id}}?key={{api_key}}",
+					"host": [ "{{base_url}}" ],
+					"path": [ "limepackapi", "v1", "tracking", "{{order_id}}" ],
+					"query": [
+						{ "key": "key", "value": "{{api_key}}" }
+					]
+				},
+				"description": "Sets the order's tracking number and advances it to the shipped state. Body fields: tracking_number (required), carrier (optional)."
+			}
+		},
+		{
+			"name": "Auth - missing key (401)",
+			"request": {
+				"method": "GET",
+				"header": [
+					{ "key": "Accept", "value": "application/json" }
+				],
+				"url": {
+					"raw": "{{base_url}}/limepackapi/v1/orders",
+					"host": [ "{{base_url}}" ],
+					"path": [ "limepackapi", "v1", "orders" ]
+				},
+				"description": "Example of a request without an API key. Expected to fail authentication."
+			}
+		}
+	]
+}

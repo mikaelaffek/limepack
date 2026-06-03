@@ -1,10 +1,32 @@
 # Limepack API MVP
 
+I focused on the smallest version that actually solves the problem. Internal
+tools like Manus and Loveable can now access shop data safely, without needing
+a developer every time.
+
+The API sits completely outside PrestaShop's core files. Every request goes
+through authentication first. Responses are consistent so any tool consuming
+it knows exactly what to expect.
+
+I've noted what's not built yet and why: moving keys to DB storage, Bearer
+token auth, per-client scopes. These are the right next steps but they're not
+needed for a first working version.
+
+It's designed so adding a new resource or a new version is a one line change.
+The complexity can grow without the structure needing to change.
+
+The order payload includes Limepack-specific fields pulled directly from your
+existing schema, including custom columns already in your data. The order
+details response exposes these customer fields: `id_customer`, `firstname`,
+`lastname`, `email`, `id_economic`, `id_employee_designer`,
+`id_employee_contact`, `id_business_type`, `locations`,
+`payment_terms_number`, `ean`, and `invoice_email`.
+
 A thin, versioned REST API for exposing Limepack shop data (and selected
 actions) to internal teams and their AI / no-code tools (e.g. Manus,
 Loveable) in a safe, consistent, and maintainable way.
 
-Built for the existing **PrestaShop 1.7.7 / PHP 7.2** install, so the code
+Built for the existing **PrestaShop 1.7.7** install, so the code
 deliberately avoids PHP 7.4+ syntax (no typed properties, no constructor
 promotion).
 
