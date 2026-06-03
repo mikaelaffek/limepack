@@ -12,12 +12,12 @@ class ApiClientProvider
 
     protected const CLIENTS = array(
 
-        'supplier_app' => array(
-            'key' => 'lp_supplier_9f3a1c72d4',
+        'manus' => array(
+            'key' => 'lp_manus_9f3a1c72d4',
         ),
 
-        'mobile_app' => array(
-            'key' => 'lp_mobile_7b28de91fa',
+        'loveable' => array(
+            'key' => 'lp_loveable_7b28de91fa',
         ),
     );
 
